@@ -1,0 +1,31 @@
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+  <strong>Holy guacamole!</strong> {{text}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> 
+{{else}}
+
+{{/each}}
+<div class="container card card-body mt-3">
+	<div class="row">
+    <div class="col-md-12">
+		<div class="form_main">
+                <h4 class="heading"><strong>Add </strong> ideas <span></span></h4>
+                <div class="form">
+                <form action="/ideas" method="post" id="contactFrm" name="contactFrm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Please input your idea title" value="" name="title" class="form-control">
+                    </div>
+                    {{!-- <input type="text" required="" placeholder="Please input your de"  name="mob" class="txt"> --}}
+                    {{!-- <input type="text" required="" placeholder="Please input your Email" value="" name="email" class="txt"> --}}
+                    
+                	 <div class="form-group"><textarea placeholder="Your details" name="details"  class="form-control"></textarea></div>
+                    <button type="submit" class="btn btn-elegant">Submit</button>
+                </form>
+            </div>
+            </div>
+            </div
+	</div>
+</div>

@@ -4,6 +4,9 @@ const express = require('express');
 //import express handlebars
 const exphbs  = require('express-handlebars');
 
+//imoport method override:::::::::::::::
+const methodOverride = require('method-override');
+
 //initialize express
 const app = express();
 
@@ -35,9 +38,12 @@ app.set('view engine', 'handlebars');
 
 //Body Parser middleware
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+
+//Method Override Middleware :::::::::::::
+app.use(methodOverride('_method'));
 
 
 //how to use middleware
@@ -64,17 +70,21 @@ title:title
 });
 });
 
-//ideas request form
+//about page ::::::::::::::::::::::::::::::::::::::::
 app.get('/about' , (req , res)=>{
 res.render('about');
 });
+//about page  ::::::::::::::::::::::::::::::::::::::::
 
-
+//ideas request  page  ::::::::::::::::::::::::::::::::::::::::
 app.get('/ideas/add' , (req , res)=>{
 res.render('ideas/add');
 });
+//ideas request page ::::::::::::::::::::::::::::::::::::::::
 
 
+
+//ideas list view page::::::::::::::::::::::::::::::::::::::::
 app.get('/ideas' , (req , res)=>{
     Idea.find({})
     .sort({date:'desc'})
@@ -84,9 +94,28 @@ app.get('/ideas' , (req , res)=>{
         });
     })
   
-    });
-    
+    }); 
+//ideas list view page::::::::::::::::::::::::::::::::::::::::
 
+
+
+//idea edit page::::::::::::::::::::::::::::::::::
+app.get('/ideas/edit/:id',(req,res)=>{
+    Idea.findOne({
+        _id:req.params.id
+    })
+    .then(idea=>{
+        res.render('ideas/edit',{
+            idea:idea
+        });
+    })
+
+});
+//ideas edit page::::::::::::::::::::::::::::::::::::::::
+
+
+
+//ideas post submit to mongo DB::::::::::::::::::::::::::::::::::::::::
 app.post('/ideas' , (req , res)=>{
 let errors = [];
 
@@ -117,6 +146,36 @@ details:req.body.details
     })
 }
 });
+//ideas post submit to mongo DB::::::::::::::::::::::::::::::::::::::::
+
+
+//idea update route/put:::::::::::::::::::::::::::::::
+/* to make the put function possible, we need help from a module called expressjs/method-override.. this can be installed using npm*/
+app.put('/ideas/:id',(req , res)=>{
+    Idea.findOne({
+        _id:req.params.id
+    })
+    .then(idea=>{
+    idea.title = req.body.title;
+    idea.details = req.body.details;
+
+    idea.save()
+    .then(idea=>{
+        res.redirect('/ideas')
+    })
+    });
+   
+    });
+    //idea update route/put:::::::::::::::::::::::::::::::
+    
+
+    //idea delete route /method::::::::::::::::::::::::::::
+    app.delete('/ideas/:id',(req,res)=>{
+     Idea.remove({_id:req.params.id})
+     .then(()=>{
+         res.redirect('/ideas')
+     })
+    });
 
 //nodemon is used to continuouesly load the serve while we make changes to the serve.
 //the nodemon can be installed either locally or globally.

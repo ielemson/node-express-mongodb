@@ -19,9 +19,12 @@ aria-hidden="true"></i></a></span>
 <td class="pt-3-half" contenteditable="true">{{details}}</td>
 
 <td>
-<span class="table-remove"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Edit</button></span>
+<span class="table-remove"><a href="/ideas/edit/{{id}}" type="button" class="btn btn-primary btn-rounded btn-sm my-0">Edit</a></span>
 </td><td>
-<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+<form action="/ideas/{{id}}?_method=DELETE" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+<button type="submit" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button>
+</form>
 </td>
 </tr>
 {{/each}}

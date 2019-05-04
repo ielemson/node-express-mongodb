@@ -1,0 +1,29 @@
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+  <strong>Holy guacamole!</strong> {{text}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> 
+{{else}}
+
+{{/each}}
+<div class="container card card-body mt-3">
+	<div class="row">
+    <div class="col-md-12">
+		<div class="form_main">
+                <h4 class="heading"><strong>Edit </strong> Ideas <span></span></h4>
+                <div class="form">
+                <form action="/ideas/{{idea.id}}?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <input type="text" value="{{idea.title}}" name="title" class="form-control">
+                    </div>
+                    <input type="hidden" name="_method" value="PUT"> 
+                	 <div class="form-group"><textarea name="details"  class="form-control">{{idea.details}}</textarea></div>
+                    <button type="submit" class="btn btn-elegant">Update</button>
+                </form>
+            </div>
+            </div>
+            </div
+	</div>
+</div>

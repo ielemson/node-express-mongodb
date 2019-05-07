@@ -4,6 +4,8 @@ const express = require('express');
 //import express handlebars
 const exphbs = require('express-handlebars');
 
+//imoport method override:::::::::::::::
+const methodOverride = require('method-override');
 
 //import flash- session
 const flash = require('connect-flash');
@@ -11,11 +13,17 @@ const flash = require('connect-flash');
 //import express-session
 const session = require('express-session');
 
-//imoport method override:::::::::::::::
-const methodOverride = require('method-override');
-
 //initialize express
 const app = express();
+
+//import route files for ideas
+const ideas = require('./routes/ideas');
+//import route files for ideas
+
+
+//import route files for users
+const users = require('./routes/users');
+//import route files users
 
 //use the public folder
 app.use(express.static('public'));
@@ -34,9 +42,7 @@ mongoose.connect('mongodb://localhost/vidieaDB', {
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
-//Load Idea Model
-require('./Models/Idea');
-const Idea = mongoose.model('ideas');
+
 
 //HANDLE BAR MIDDLEWARE
 app.engine('handlebars', exphbs({
@@ -59,14 +65,19 @@ app.use(session({
     secret: 'secret',
     resave: true,
     saveUninitialized: true
-  }));
+}));
 //Express Session Middleware::::::::::::
 
 
 //CONNECT FLASH
 app.use(flash());
 
-
+app.use((req, res, next) =>{
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 
 //how to use middleware
@@ -99,107 +110,7 @@ app.get('/about', (req, res) => {
 });
 //about page  ::::::::::::::::::::::::::::::::::::::::
 
-//ideas request  page  ::::::::::::::::::::::::::::::::::::::::
-app.get('/ideas/add', (req, res) => {
-    res.render('ideas/add');
-});
-//ideas request page ::::::::::::::::::::::::::::::::::::::::
-
-
-
-//ideas list view page::::::::::::::::::::::::::::::::::::::::
-app.get('/ideas', (req, res) => {
-    Idea.find({})
-        .sort({ date: 'desc' })
-        .then(ideas => {
-            res.render('ideas/index', {
-                ideas: ideas
-            });
-        })
-
-});
-//ideas list view page::::::::::::::::::::::::::::::::::::::::
-
-
-
-//idea edit page::::::::::::::::::::::::::::::::::
-app.get('/ideas/edit/:id', (req, res) => {
-    Idea.findOne({
-        _id: req.params.id
-    })
-        .then(idea => {
-            res.render('ideas/edit', {
-                idea: idea
-            });
-        })
-
-});
-//ideas edit page::::::::::::::::::::::::::::::::::::::::
-
-
-
-//ideas post submit to mongo DB::::::::::::::::::::::::::::::::::::::::
-app.post('/ideas', (req, res) => {
-    let errors = [];
-
-    if (!req.body.title) {
-        errors.push({ text: 'please add a title' });
-    }
-
-    if (!req.body.details) {
-        errors.push({ text: 'please enter some details' });
-    }
-
-    if (errors.length > 0) {
-        res.render('ideas/add', {
-            errors: errors,
-            title: req.body.title,
-            details: req.body.details
-        });
-    } else {
-        // res.send('Passed');
-        const newUser = {
-            title: req.body.title,
-            details: req.body.details
-        }
-        new Idea(newUser)
-            .save()
-            .then(idea => {
-                res.redirect('/ideas');
-            })
-    }
-});
-//ideas post submit to mongo DB::::::::::::::::::::::::::::::::::::::::
-
-
-//idea update route/put:::::::::::::::::::::::::::::::
-/* to make the put function possible, we need help from a module called expressjs/method-override.. this can be installed using npm*/
-app.put('/ideas/:id', (req, res) => {
-    Idea.findOne({
-        _id: req.params.id
-    })
-        .then(idea => {
-            idea.title = req.body.title;
-            idea.details = req.body.details;
-
-            idea.save()
-                .then(idea => {
-                    res.redirect('/ideas')
-                })
-        });
-
-});
-//idea update route/put:::::::::::::::::::::::::::::::
-
-
-//idea delete route /method::::::::::::::::::::::::::::
-app.delete('/ideas/:id', (req, res) => {
-    Idea.deleteOne({ _id: req.params.id })
-        .then(() => {
-            res.redirect('/ideas')
-        })
-});
-
+   
 //nodemon is used to continuouesly load the serve while we make changes to the serve.
 //the nodemon can be installed either locally or globally.
 //globally: npm install g nodemon
@@ -214,6 +125,14 @@ to be able to carry out post request i.e put , delete, we need a third party dep
 npm install --save body-parser
 
 */
+
+//use the imported routes
+app.use('/ideas' , ideas);
+//use the imported routes
+
+//use the imported routes
+app.use('/users' , users);
+//use the imported routes
 const port = 5000;
 
 app.listen(port, () => {

@@ -1,0 +1,9 @@
+To query the db using mongoDB:
+
+first open the server by typing: mongo
+secondly list the databases by typing 'show databases
+thirdly enter the databases by typing use databases shown above
+forthly enter he databases by typing show collection
+lastly query the document by typing db.dbname.find()
+To Delete DB:
+db.dropDatabase()

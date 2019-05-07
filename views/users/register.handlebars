@@ -1,0 +1,111 @@
+<!-- Material form register -->
+<div class="col-md-6 col-sm-12 col-lg-6" style="margin:0 auto">
+    
+<div class="card mt-5">
+
+<h5 class="card-header info-color white-text text-center py-12 col-md-12">
+<strong>Sign up</strong>
+</h5>
+
+<!--Card content-->
+<div class="card-body px-lg-5 pt-0">
+
+<!-- Form -->
+<form class="text-center" style="color: #757575;" method="POST" action="/users/register">
+
+<div class="form-row">
+<div class="col">
+<!-- First name -->
+<div class="md-form">
+<input type="text" id="materialRegisterFormFirstName" class="form-control" name="first_name" value="{{first_name}}">
+<label for="materialRegisterFormFirstName">First name</label>
+</div>
+</div>
+<div class="col">
+<!-- Last name -->
+<div class="md-form">
+<input type="text" id="materialRegisterFormLastName" class="form-control" name="last_name" value="{{last_name}}"> 
+<label for="materialRegisterFormLastName">Last name</label>
+</div>
+</div>
+</div>
+
+<!-- E-mail -->
+<div class="md-form mt-0">
+<input type="email" id="materialRegisterFormEmail" class="form-control" name="email" value="{{email}}">
+<label for="materialRegisterFormEmail">E-mail</label>
+</div>
+
+<!-- Password -->
+<div class="form-row">
+<div class="col">
+<!-- First name -->
+<div class="md-form">
+<input type="password" id="materialRegisterFormPassowrd" class="form-control" name="password" value="{{password}}">
+<label for="materialRegisterFormPassowrd">Password</label>
+</div>
+</div>
+<div class="col">
+<!-- Last name -->
+<div class="md-form">
+<input type="password" id="materialRegisterFormCPassowrd" class="form-control" name="cpassword" value="{{cpassword}}"> 
+<label for="materialRegisterFormCPassowrd">Confirm Password</label>
+</div>
+</div>
+</div>
+
+<!-- Phone number -->
+<div class="md-form">
+<input type="text" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" name="phone" value="{{phone}}">
+<label for="materialRegisterFormPhone">Phone number</label>
+{{!-- <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+Optional - for two step authentication
+</small> --}}
+</div>
+
+<!-- Newsletter -->
+{{!-- <div class="form-check">
+<input type="checkbox" class="form-check-input" id="materialRegisterFormNewsletter">
+<label class="form-check-label" for="materialRegisterFormNewsletter">Subscribe to our newsletter</label>
+</div> --}}
+
+<!-- Sign up button -->
+<button class="btn btn-info my-4 btn-block" type="submit">Sign up</button>
+
+<!-- Login -->
+<p>Already a member?
+<a href="/users/login">Login</a>
+</p>
+
+
+<!-- Social register -->
+<p>or sign up with:</p>
+
+<a type="button" class="btn-floating btn-fb btn-sm">
+<i class="fab fa-facebook-f"></i>
+</a>
+<a type="button" class="btn-floating btn-tw btn-sm">
+<i class="fab fa-twitter"></i>
+</a>
+<a type="button" class="btn-floating btn-li btn-sm">
+<i class="fab fa-linkedin-in"></i>
+</a>
+<a type="button" class="btn-floating btn-git btn-sm">
+<i class="fab fa-github"></i>
+</a>
+
+<hr>
+
+<!-- Terms of service -->
+{{!-- <p>By clicking
+<em>Sign up</em> you agree to our
+<a href="" target="_blank">terms of service</a> --}}
+
+</form>
+<!-- Form -->
+
+</div>
+
+</div></div>
+
+<!-- Material form register -->

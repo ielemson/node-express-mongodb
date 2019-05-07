@@ -1,12 +1,13 @@
 <!-- Editable table -->
-<div class="card">
-<h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+<div class="card mt-5">
+<h3 class="card-header text-center font-weight-bold text-uppercase py-4">List of Video Idea</h3>
 <div class="card-body">
 <div id="table" class="table-editable">
 <span class="table-add float-right mb-3 mr-2"><a href="/ideas/add" class="text-success"><i class="fas fa-plus fa-2x"
 aria-hidden="true"></i></a></span>
 <table class="table table-bordered table-responsive-md table-striped text-center">
-<tr>
+  {{#if ideas}}
+<tr class="bg-primary font-weight-bold">
 <th class="text-center">Title</th>
 <th class="text-center">Details</th>
 <th class="text-center">Edit</th>
@@ -27,11 +28,15 @@ aria-hidden="true"></i></a></span>
 </form>
 </td>
 </tr>
+
+
 {{/each}}
+{{else}}
+<tr class="text-center font-weight-bold text-uppercase py-4  bg-info">
+<td class="pt-3-half" contenteditable="true"><strong>No Video Idea Available</strong></td>
+</tr>
+{{/if}}
 <!-- This is our clonable table line -->
-
-
-
 </table>
 </div>
 </div>

@@ -1,10 +1,20 @@
+{{#if error}}
+<div class="alert alert-danger alert-dismissible fade show mt-3 col-md-5" role="alert" style="margin:0 auto;">
+  <strong>Holy guacamole!</strong> {{error}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
+
+
 {{#each errors}}
-<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+<div class="alert alert-danger alert-dismissible fade show mt-3 col-md-5 mb-0" role="alert" style="margin:0 auto;">
   <strong>Holy guacamole!</strong> {{text}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div> 
 {{else}}
-
+ 
 {{/each}}

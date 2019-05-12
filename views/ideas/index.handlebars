@@ -16,8 +16,8 @@ aria-hidden="true"></i></a></span>
 </tr>
 {{#each ideas}}
 <tr>
-<td class="pt-3-half" contenteditable="true">{{title}}</td>
-<td class="pt-3-half" contenteditable="true">{{details}}</td>
+<td class="pt-3-half" >{{title}}</td>
+<td class="pt-3-half">{{details}}</td>
 
 <td>
 <span class="table-remove"><a href="/ideas/edit/{{id}}" type="button" class="btn btn-primary btn-rounded btn-sm my-0">Edit</a></span>
@@ -32,8 +32,8 @@ aria-hidden="true"></i></a></span>
 
 {{/each}}
 {{else}}
-<tr class="text-center font-weight-bold text-uppercase py-4  bg-info">
-<td class="pt-3-half" contenteditable="true"><strong>No Video Idea Available</strong></td>
+<tr class="bg-info">
+<td><h3 class="pt-3-half text-center font-weight-bold text-uppercase">No Video Idea Available <small><a href="ideas/add" class="btn btn-primary btn-sm ml-10">Add ideas</a></small><h3></td>
 </tr>
 {{/if}}
 <!-- This is our clonable table line -->

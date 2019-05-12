@@ -6,6 +6,10 @@ const express = require('express');
 //:::: first we need to bring in express js into this dir.
 
 //:::: secondly we need to bring in the router from expess js
+
+//:::: import the passport for login auth
+const passport =require('passport');
+//:::: import the passport for login auth::::::::::
 const router = express.Router();
 //:::: secondly we need to bring in the router from expess js
 
@@ -34,7 +38,14 @@ router.get('/register', (req, res) => {
 });
 //REGISTER ROUTE 
 
-
+//::USER LOGIN FORM:::::::::::::::::::::::::::::
+router.post('/login',(req, res,next)=>{
+passport.authenticate('local',{
+    successRedirect:'/ideas',
+    failureRedirect:'/users/login',
+    failureFlash:true
+})(req,res,next);
+});
 //register form post:::::::::::::::::::
 // req - > reqeust
 // req.body -> request form body fields
@@ -91,7 +102,7 @@ router.post('/register', (req, res) => {
         User.findOne({ email: req.body.email })
             .then(user => {
                 if (user) {
-                    req.flash('error_msg', 'User already exist');
+                    req.flash('error_msg', 'Email already exist');
                     res.redirect('/users/register')
                 } else {
                     const newUser = new User({
@@ -118,11 +129,20 @@ router.post('/register', (req, res) => {
                         });
                     });
                 }
-            })
+            });
 
 
     }
 });
 //register form post:::::::::::::::::::
 
+
+
+//Logout Out Form
+
+router.get('/logout',(req,res)=>{
+    req.logout();
+    req.flash('success_msg', 'You are logged out successfully');
+    res.redirect('/users/login');
+})
 module.exports = router;

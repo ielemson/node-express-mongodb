@@ -58,7 +58,7 @@ idea: idea
 
 
 //ideas post submit to mongo DB::::::::::::::::::::::::::::::::::::::::
-router.post('/', (req, res) => {
+router.post('/add', (req, res) => {
 let errors = [];
 
 if (!req.body.title) {
@@ -70,7 +70,7 @@ errors.push({ text: 'please enter some details' });
 }
 
 if (errors.length > 0) {
-res.render('/add', {
+res.render('ideas/add', {
 errors: errors,
 title: req.body.title,
 details: req.body.details
@@ -85,7 +85,7 @@ new Idea(newUser)
 .save()
 .then(idea => {
 req.flash('success_msg' , 'Video Idea  Added')
-res.redirect('/ideas');
+res.redirect('ideas/');
 })
 }
 });

@@ -37,17 +37,17 @@ aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Tog
 
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-aria-haspopup="true" aria-expanded="false">Video Ideas
+aria-haspopup="true" aria-expanded="false">{{user.email}}
 </a>
 <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-<a class="dropdown-item" href="/ideas">Ideas</a>
+<a class="dropdown-item" href="/ideas">View Ideas</a>
 <a class="dropdown-item" href="/ideas/add">Add Ideas</a>
+<a class="dropdown-item" href="/user/profile">Profile</a>
+<a class="dropdown-item" href="/users/logout">Exit</a>
 </div>
 </li>
 
-<li class="nav-item">
-<a class="nav-link" href="/users/logout">Logout</a>
-</li>
+
 {{else}}
 <li class="nav-item">
 <a class="nav-link" href="/users/login">Login</a>

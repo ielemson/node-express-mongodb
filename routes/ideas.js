@@ -9,17 +9,22 @@ const express = require('express');
 const router = express.Router();
 //:::: secondly we need to bring in the router from expess js
 
+
+//import auth middleware
+const {ensureAthenticated} = require('../helpers/auth');
+//Load Idea Model
+
 //::::Import mogoose for use
 const mongoose = require('mongoose');
 //::::Import mogoose for use
 
-//Load Idea Model
+
 require('../Models/Idea');
 const Idea = mongoose.model('ideas');
 
 
 //ideas request  page  ::::::::::::::::::::::::::::::::::::::::
-router.get('/add', (req, res) => {
+router.get('/add', ensureAthenticated , (req, res) => {
 res.render('ideas/add');
 });
 //ideas request page ::::::::::::::::::::::::::::::::::::::::
@@ -27,7 +32,7 @@ res.render('ideas/add');
 
 
 //ideas list view page::::::::::::::::::::::::::::::::::::::::
-router.get('/', (req, res) => {
+router.get('/', ensureAthenticated ,(req, res) => {
 Idea.find({})
 .sort({ date: 'desc' })
 .then(ideas => {
@@ -42,7 +47,7 @@ ideas: ideas
 
 
 //idea edit page::::::::::::::::::::::::::::::::::
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', ensureAthenticated ,(req, res) => {
 Idea.findOne({
 _id: req.params.id
 })
@@ -58,7 +63,7 @@ idea: idea
 
 
 //ideas post submit to mongo DB::::::::::::::::::::::::::::::::::::::::
-router.post('/add', (req, res) => {
+router.post('/add', ensureAthenticated ,(req, res) => {
 let errors = [];
 
 if (!req.body.title) {
@@ -94,7 +99,7 @@ res.redirect('ideas/');
 
 //idea update route/put:::::::::::::::::::::::::::::::
 /* to make the put function possible, we need help from a module called expressjs/method-override.. this can be installed using npm*/
-router.put('/:id', (req, res) => {
+router.put('/:id', ensureAthenticated ,(req, res) => {
 Idea.findOne({
 _id: req.params.id
 })
@@ -114,7 +119,7 @@ res.redirect('/ideas')
 
 
 //idea delete route /method::::::::::::::::::::::::::::
-router.delete('/:id', (req, res) => {
+router.delete('/:id', ensureAthenticated, (req, res) => {
 Idea.deleteOne({ _id: req.params.id })
 .then(() => {
 req.flash('success_msg' , 'Video Idea Removed')

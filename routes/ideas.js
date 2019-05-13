@@ -33,7 +33,7 @@ res.render('ideas/add');
 
 //ideas list view page::::::::::::::::::::::::::::::::::::::::
 router.get('/', ensureAthenticated ,(req, res) => {
-Idea.find({})
+Idea.find({user:req.user.id})
 .sort({ date: 'desc' })
 .then(ideas => {
 res.render('ideas/index', {
@@ -52,9 +52,15 @@ Idea.findOne({
 _id: req.params.id
 })
 .then(idea => {
-res.render('ideas/edit', {
-idea: idea
-});
+    if(idea.user!= req.user.id){
+        req.flash('error_msg','Your Unauthorized');
+        res.redirect('/ideas')
+    }else{
+        res.render('ideas/edit', {
+            idea: idea
+            });
+    }
+
 })
 
 });
@@ -84,13 +90,14 @@ details: req.body.details
 // res.send('Passed');
 const newUser = {
 title: req.body.title,
-details: req.body.details
+details: req.body.details,
+user:req.user.id
 }
 new Idea(newUser)
 .save()
 .then(idea => {
 req.flash('success_msg' , 'Video Idea  Added')
-res.redirect('ideas/');
+res.redirect('/ideas');
 })
 }
 });

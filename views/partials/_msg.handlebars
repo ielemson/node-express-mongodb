@@ -1,21 +1,50 @@
 {{#if success_msg}}
 
-<div class="alert alert-success alert-dismissible fade show mt-3 col-md-5" role="alert" style="margin:0 auto">
-  <strong>Great!!</strong> {{success_msg}}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+{{!-- <div class="alert alert-success alert-dismissible fade show mt-3 col-md-5" role="alert" style="margin:0 auto">
+<strong>Great!!</strong> {{success_msg}}
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div> --}}
+
+{{!-- SUCCESSS:::::::::::::::::::::::::::::::::::::::::::::::::::: --}}
+<input type="hidden" value="{{success_msg}}" id="Flow_success">
+<script>
+const notify_success = ()=>{
+let flow_success =  $('#Flow_success').val();
+$.notify({
+	title: '<strong>Sucess!</strong>',
+	message:flow_success
+},
+{
+	type: 'pastel-success',
+	delay: 5000,
+});
+}
+notify_success();
+</script>
 {{/if}}
 
 
-{{#if error_msg}}
 
-<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-  <strong>Holy guacamole!</strong> {{error_msg}}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+{{!-- ERROR::::::::::::::::::::::::::::::::::::::::: --}}
+
+{{#if error_msg}}
+<input type="hidden" value="{{error_msg}}" id="Flow_error">
+<script>
+const notify_error = ()=>{
+let flow_errors =  $('#Flow_error').val();
+$.notify({
+	title: '<strong>Error!</strong>',
+	message:flow_errors
+},
+
+{
+	type: 'pastel-danger',
+	delay: 5000,
+});
+}
+notify_error();
+</script>
 
 {{/if}}

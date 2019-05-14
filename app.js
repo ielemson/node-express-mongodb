@@ -44,8 +44,11 @@ const bodyParser = require('body-parser');
 //REQUIRE MONGOOSE 
 const mongoose = require('mongoose');
 
+//DB CONFIG
+const db = require('./config/database');
+
 //Connect to mongoose :This also creates the database, and inside the DB we have two tables: users and ideas
-mongoose.connect('mongodb://localhost/video_idea_DB', {
+mongoose.connect(db.mongURI, {
 useNewUrlParser: true
 })
 //using the promise to log information once db is connected successfully
